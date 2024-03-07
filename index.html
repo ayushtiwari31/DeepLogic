@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Stories on Time.com</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Latest Stories on Time.com</h1>
+    <ul id="latest-stories-list">
+        
+    </ul>
+
+    <script>
+        
+        function fetchLatestStories() {
+            fetch('https://time.com/getTimeStories') 
+                .then(response => response.json())
+                .then(data => {
+                    const latestStoriesList = document.getElementById('latest-stories-list');
+                    latestStoriesList.innerHTML = ''; 
+                    data.forEach(story => {
+                        const listItem = document.createElement('li');
+                        const link = document.createElement('a');
+                        link.href = story.url;
+                        link.textContent = story.title;
+                        listItem.appendChild(link);
+                        latestStoriesList.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching latest stories:', error));
+        }
+
+        fetchLatestStories();
+    </script>
+</body>
+</html>
